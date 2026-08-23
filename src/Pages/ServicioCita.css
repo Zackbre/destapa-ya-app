@@ -1,0 +1,292 @@
+.sc-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(0,119,204,.10),
+      transparent 30%
+    ),
+    #F5F7FA;
+  color: #0D1B3D;
+}
+
+.sc-topbar {
+  min-height: 105px;
+  padding: 22px 42px;
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid #E5EAF0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sc-topbar h1 {
+  margin: 6px 0 2px;
+  font-size: 28px;
+}
+
+.sc-topbar p {
+  margin: 0;
+  color: #6B6F76;
+  font-size: 12px;
+}
+
+.sc-back {
+  border: 0;
+  background: transparent;
+  color: #0077CC;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 600;
+}
+
+.sc-brand {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.sc-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
+.sc-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.sc-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9AA4B2;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.sc-step span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #D8DEE7;
+  display: grid;
+  place-items: center;
+  background: white;
+}
+
+.sc-step.active {
+  color: #0077CC;
+}
+
+.sc-step.active span {
+  color: white;
+  background: #0077CC;
+  border-color: #0077CC;
+}
+
+.sc-step.complete {
+  color: #0D1B3D;
+}
+
+.sc-step.complete span {
+  color: white;
+  background: #0D1B3D;
+  border-color: #0D1B3D;
+}
+
+.sc-line {
+  width: 58px;
+  height: 1px;
+  background: #DDE3EA;
+  margin: 0 12px;
+}
+
+.sc-line.active {
+  background: #0077CC;
+}
+
+.sc-card {
+  background: white;
+  border: 1px solid #E5EAF0;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 16px 42px rgba(13,27,61,.07);
+}
+
+.sc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.sc-eyebrow {
+  color: #0077CC;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.sc-card-header h2 {
+  margin: 8px 0 6px;
+  font-size: 22px;
+}
+
+.sc-card-header p {
+  margin: 3px 0;
+  color: #6B6F76;
+  font-size: 11px;
+}
+
+.sc-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #EDF7FF;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+.sc-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.sc-grid.two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.sc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.sc-field label {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.sc-field select,
+.sc-field textarea {
+  width: 100%;
+  border: 1px solid #DDE3EA;
+  border-radius: 12px;
+  padding: 13px 14px;
+  background: #FBFCFE;
+  color: #0D1B3D;
+  outline: none;
+  transition: .2s ease;
+}
+
+.sc-field textarea {
+  resize: vertical;
+}
+
+.sc-field select:focus,
+.sc-field textarea:focus {
+  border-color: #0077CC;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(0,119,204,.08);
+}
+
+.sc-actions {
+  border-top: 1px solid #EDF0F4;
+  margin-top: 10px;
+  padding-top: 22px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.sc-primary,
+.sc-secondary {
+  border-radius: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.sc-primary {
+  border: 0;
+  background: linear-gradient(135deg,#0077CC,#1598F5);
+  color: white;
+}
+
+.sc-secondary {
+  border: 1px solid #DDE3EA;
+  background: white;
+  color: #6B6F76;
+}
+
+.sc-loading {
+  padding: 30px;
+  text-align: center;
+  color: #6B6F76;
+}
+
+@media (max-width: 720px) {
+  .sc-topbar {
+    padding: 18px;
+  }
+
+  .sc-brand {
+    display: none;
+  }
+
+  .sc-content {
+    padding: 22px 14px 40px;
+  }
+
+  .sc-progress {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .sc-line {
+    width: 25px;
+    margin: 0 6px;
+  }
+
+  .sc-grid.two {
+    grid-template-columns: 1fr;
+  }
+
+  .sc-card {
+    padding: 20px 16px;
+  }
+
+  .sc-actions {
+    flex-direction: column-reverse;
+  }
+
+  .sc-primary,
+  .sc-secondary {
+    width: 100%;
+  }
+}
+.sc-error {
+  display: block;
+  margin-top: 2px;
+  color: #D92D20;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.sc-field select.sc-input-error,
+.sc-field textarea.sc-input-error {
+  border-color: #D92D20;
+  background: #FFF8F7;
+  box-shadow: 0 0 0 4px rgba(217,45,32,.06);
+}
+
+.sc-field select.sc-input-error:focus,
+.sc-field textarea.sc-input-error:focus {
+  border-color: #D92D20;
+  box-shadow: 0 0 0 4px rgba(217,45,32,.08);
+}

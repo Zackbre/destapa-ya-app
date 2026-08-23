@@ -1,0 +1,415 @@
+.nc-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(0, 119, 204, 0.10),
+      transparent 30%
+    ),
+    #F5F7FA;
+  color: #0D1B3D;
+}
+
+.nc-topbar {
+  min-height: 105px;
+  padding: 22px 42px;
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid #E5EAF0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nc-topbar h1 {
+  margin: 6px 0 2px;
+  font-size: 28px;
+}
+
+.nc-topbar p {
+  margin: 0;
+  color: #6B6F76;
+  font-size: 12px;
+}
+
+.nc-back {
+  border: 0;
+  background: transparent;
+  color: #0077CC;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 600;
+}
+
+.nc-brand {
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #0D1B3D;
+}
+
+.nc-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
+
+/* PROGRESO */
+
+.nc-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.nc-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9AA4B2;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.nc-step span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #D8DEE7;
+  display: grid;
+  place-items: center;
+  background: white;
+}
+
+.nc-step.active {
+  color: #0077CC;
+}
+
+.nc-step.active span {
+  color: white;
+  background: #0077CC;
+  border-color: #0077CC;
+  box-shadow: 0 6px 18px rgba(0,119,204,.22);
+}
+
+.nc-line {
+  width: 58px;
+  height: 1px;
+  background: #DDE3EA;
+  margin: 0 12px;
+}
+
+
+/* CARD */
+
+.nc-card {
+  background: white;
+  border: 1px solid #E5EAF0;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 16px 42px rgba(13,27,61,.07);
+}
+
+.nc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.nc-eyebrow {
+  color: #0077CC;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.nc-card-header h2 {
+  margin: 8px 0 5px;
+  font-size: 22px;
+}
+
+.nc-card-header p {
+  margin: 0;
+  color: #6B6F76;
+  font-size: 12px;
+}
+
+.nc-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #EDF7FF;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+
+/* CAMPOS */
+
+.nc-grid {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.nc-grid.two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.nc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.nc-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0D1B3D;
+}
+
+.nc-field input,
+.nc-field select,
+.nc-field textarea {
+  width: 100%;
+  border: 1px solid #DDE3EA;
+  border-radius: 12px;
+  padding: 13px 14px;
+  background: #FBFCFE;
+  color: #0D1B3D;
+  outline: none;
+  transition: .2s ease;
+}
+
+.nc-field input:focus,
+.nc-field select:focus,
+.nc-field textarea:focus {
+  border-color: #0077CC;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(0,119,204,.08);
+}
+
+.nc-field small {
+  color: #98A1AE;
+  font-size: 9px;
+}
+
+
+/* TIPO CLIENTE */
+
+.nc-type-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.nc-type-selector button {
+  border: 1px solid #E0E6ED;
+  background: #FAFCFE;
+  border-radius: 15px;
+  padding: 17px;
+  cursor: pointer;
+  color: #6B6F76;
+  font-weight: 600;
+  transition: .2s ease;
+}
+
+.nc-type-selector button span {
+  margin-left: 7px;
+}
+
+.nc-type-selector button:hover {
+  border-color: rgba(0,119,204,.35);
+}
+
+.nc-type-selector button.selected {
+  background: #EFF8FF;
+  border-color: #0077CC;
+  color: #0077CC;
+  box-shadow: 0 8px 22px rgba(0,119,204,.08);
+}
+
+.nc-company-box {
+  background: #F8FAFC;
+  border: 1px solid #E7EBF0;
+  padding: 20px;
+  border-radius: 17px;
+  margin-bottom: 20px;
+}
+
+
+/* ACCIONES */
+
+.nc-actions {
+  border-top: 1px solid #EDF0F4;
+  margin-top: 10px;
+  padding-top: 22px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.nc-primary,
+.nc-secondary {
+  border-radius: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.nc-primary {
+  border: 0;
+  background:
+    linear-gradient(
+      135deg,
+      #0077CC,
+      #1598F5
+    );
+  color: white;
+  box-shadow: 0 8px 22px rgba(0,119,204,.20);
+}
+
+.nc-secondary {
+  border: 1px solid #DDE3EA;
+  background: white;
+  color: #6B6F76;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 720px) {
+
+  .nc-topbar {
+    padding: 18px;
+  }
+
+  .nc-brand {
+    display: none;
+  }
+
+  .nc-content {
+    padding: 22px 14px 40px;
+  }
+
+  .nc-progress {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .nc-line {
+    width: 25px;
+    margin: 0 6px;
+  }
+
+  .nc-step {
+    white-space: nowrap;
+  }
+
+  .nc-step {
+    font-size: 9px;
+  }
+
+  .nc-card {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  .nc-grid.two {
+    grid-template-columns: 1fr;
+  }
+
+  .nc-type-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .nc-actions {
+    flex-direction: column-reverse;
+  }
+
+  .nc-primary,
+  .nc-secondary {
+    width: 100%;
+  }
+
+}
+.nc-search-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 18px;
+}
+
+.nc-search-field {
+  margin-bottom: 0;
+}
+
+.nc-search-button {
+  height: 46px;
+  border: 0;
+  border-radius: 12px;
+  padding: 0 20px;
+  background: #0D1B3D;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  transition: .2s ease;
+}
+
+.nc-search-button:hover {
+  background: #0077CC;
+}
+
+.nc-search-button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.nc-client-status {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #F7F9FC;
+  border: 1px solid #E3E8EE;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nc-client-status strong {
+  color: #0D1B3D;
+  font-size: 12px;
+}
+
+.nc-client-status span {
+  color: #6B6F76;
+  font-size: 11px;
+}
+
+.nc-client-status.found {
+  background: #EEF8FF;
+  border-color: rgba(0,119,204,.28);
+}
+
+.nc-client-status.found strong {
+  color: #0077CC;
+}
+
+.nc-type-selector.compact button {
+  min-height: 48px;
+  padding: 12px;
+}
+
+@media (max-width: 720px) {
+  .nc-search-row {
+    grid-template-columns: 1fr;
+  }
+
+  .nc-search-button {
+    width: 100%;
+  }
+}

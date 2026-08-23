@@ -1,0 +1,919 @@
+.dcita-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(0, 119, 204, 0.10),
+      transparent 30%
+    ),
+    #F5F7FA;
+  color: #0D1B3D;
+}
+
+
+/* ==========================================
+   TOPBAR
+========================================== */
+
+.dcita-topbar {
+  min-height: 105px;
+  padding: 22px 42px;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #E5EAF0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.dcita-topbar h1 {
+  margin: 6px 0 2px;
+  font-size: 28px;
+}
+
+
+.dcita-topbar p {
+  margin: 0;
+  color: #6B6F76;
+  font-size: 12px;
+}
+
+
+.dcita-back {
+  border: 0;
+  background: transparent;
+  color: #0077CC;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 700;
+}
+
+
+.dcita-brand {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+
+/* ==========================================
+   CONTENIDO
+========================================== */
+
+.dcita-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 24px 60px;
+}
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.dcita-hero {
+  background:
+    linear-gradient(
+      120deg,
+      #0D1B3D,
+      #12356B 60%,
+      #0077CC
+    );
+  color: white;
+  border-radius: 24px;
+  padding: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow:
+    0 18px 40px rgba(13, 27, 61, 0.16);
+  margin-bottom: 20px;
+}
+
+
+.dcita-hero span {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+
+.dcita-hero h2 {
+  margin: 8px 0 4px;
+  font-size: 27px;
+}
+
+
+.dcita-hero p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+
+.dcita-status {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+
+/* ==========================================
+   TARJETAS
+========================================== */
+
+.dcita-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+
+.dcita-card {
+  background: white;
+  border: 1px solid #E5EAF0;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow:
+    0 12px 30px rgba(13, 27, 61, 0.05);
+}
+
+
+.dcita-card.full {
+  margin-bottom: 16px;
+}
+
+
+.dcita-label {
+  display: block;
+  font-size: 9px;
+  color: #98A1AE;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  margin-bottom: 7px;
+}
+
+
+.dcita-card h3 {
+  margin: 0 0 5px;
+  font-size: 15px;
+}
+
+
+.dcita-card p {
+  margin: 0;
+  color: #6B6F76;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+
+.dcita-text {
+  font-size: 13px !important;
+  line-height: 1.7 !important;
+}
+
+
+/* ==========================================
+   ACCIONES
+========================================== */
+
+.dcita-actions {
+  margin-top: 20px;
+  border-top: 1px solid #E8EDF3;
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+
+.dcita-actions button {
+  border-radius: 11px;
+  padding: 11px 16px;
+  cursor: pointer;
+  font-weight: 700;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+
+.dcita-actions button:hover {
+  transform: translateY(-1px);
+}
+
+
+.dcita-secondary {
+  border: 1px solid #DDE3EA;
+  background: white;
+  color: #0D1B3D;
+}
+
+
+.dcita-secondary:hover {
+  background: #F8FAFC;
+}
+
+
+.dcita-confirm {
+  border: 0;
+  background: #0077CC;
+  color: white;
+}
+
+
+.dcita-confirm:hover {
+  background: #0068B3;
+  box-shadow:
+    0 8px 20px rgba(0, 119, 204, 0.18);
+}
+
+
+.dcita-whatsapp {
+  border: 1px solid #B7E4C7;
+  background: #F0FFF4;
+  color: #157A44;
+}
+
+
+.dcita-whatsapp:hover {
+  background: #E6FAEC;
+}
+
+
+.dcita-cancel {
+  border: 1px solid #FECACA;
+  background: #FFF7F7;
+  color: #B42318;
+}
+
+
+.dcita-cancel:hover {
+  background: #FEECEC;
+}
+
+
+/* ==========================================
+   MODAL - OVERLAY
+========================================== */
+
+.dcita-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  background:
+    rgba(13, 27, 61, 0.68);
+
+  backdrop-filter:
+    blur(5px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  animation:
+    dcitaOverlayIn
+    0.18s ease;
+}
+
+
+/* ==========================================
+   MODAL
+========================================== */
+
+.dcita-modal {
+  width: min(
+    560px,
+    100%
+  );
+
+  max-height:
+    calc(
+      100vh - 40px
+    );
+
+  overflow-y: auto;
+
+  background: white;
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 30px 80px
+    rgba(13, 27, 61, 0.30);
+
+  animation:
+    dcitaModalIn
+    0.20s ease;
+}
+
+
+/* ==========================================
+   MODAL HEADER
+========================================== */
+
+.dcita-modal-header {
+  padding: 24px;
+
+  background:
+    linear-gradient(
+      120deg,
+      #0D1B3D,
+      #12356B 65%,
+      #0077CC
+    );
+
+  color: white;
+
+  display: flex;
+
+  align-items:
+    flex-start;
+
+  justify-content:
+    space-between;
+
+  gap: 18px;
+}
+
+
+.dcita-modal-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.4px;
+
+  color: #80CAFF;
+}
+
+
+.dcita-modal-header h2 {
+  margin: 0 0 6px;
+
+  font-size: 23px;
+}
+
+
+.dcita-modal-header p {
+  margin: 0;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.68
+    );
+
+  font-size: 12px;
+}
+
+
+.dcita-modal-close {
+  width: 38px;
+  height: 38px;
+
+  flex:
+    0 0 38px;
+
+  border-radius: 10px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.20
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.10
+    );
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  transition:
+    background 0.15s ease;
+}
+
+
+.dcita-modal-close:hover {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.20
+    );
+}
+
+
+/* ==========================================
+   MODAL BODY
+========================================== */
+
+.dcita-modal-body {
+  padding: 24px;
+}
+
+
+/* ==========================================
+   ADVERTENCIA
+========================================== */
+
+.dcita-warning {
+  margin-bottom: 22px;
+
+  padding: 15px 16px;
+
+  border:
+    1px solid
+    #FED7AA;
+
+  border-radius: 13px;
+
+  background:
+    #FFF7ED;
+}
+
+
+.dcita-warning strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color:
+    #9A3412;
+
+  font-size: 13px;
+}
+
+
+.dcita-warning p {
+  margin: 0;
+
+  color:
+    #C2410C;
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+
+/* ==========================================
+   FORMULARIO
+========================================== */
+
+.dcita-form-group {
+  margin-bottom: 19px;
+}
+
+
+.dcita-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color:
+    #0D1B3D;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+.dcita-form-group select,
+.dcita-form-group textarea {
+  width: 100%;
+
+  box-sizing:
+    border-box;
+
+  border:
+    1px solid
+    #DDE3EA;
+
+  border-radius:
+    11px;
+
+  background:
+    white;
+
+  color:
+    #0D1B3D;
+
+  font: inherit;
+
+  outline:
+    none;
+
+  transition:
+    border-color
+    0.15s ease,
+    box-shadow
+    0.15s ease;
+}
+
+
+.dcita-form-group select {
+  min-height: 46px;
+
+  padding:
+    0 13px;
+}
+
+
+.dcita-form-group textarea {
+  padding:
+    12px 13px;
+
+  resize:
+    vertical;
+
+  min-height:
+    105px;
+}
+
+
+.dcita-form-group select:focus,
+.dcita-form-group textarea:focus {
+  border-color:
+    #0077CC;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      0,
+      119,
+      204,
+      0.10
+    );
+}
+
+
+.dcita-form-group select:disabled,
+.dcita-form-group textarea:disabled {
+  background:
+    #F2F4F7;
+
+  cursor:
+    not-allowed;
+}
+
+
+.dcita-form-group small {
+  display: block;
+
+  margin-top: 6px;
+
+  color:
+    #98A1AE;
+
+  font-size: 10px;
+}
+
+
+/* ==========================================
+   CARGANDO
+========================================== */
+
+.dcita-loading {
+  padding: 13px;
+
+  border:
+    1px solid
+    #E5EAF0;
+
+  border-radius:
+    11px;
+
+  background:
+    #F8FAFC;
+
+  color:
+    #667085;
+
+  font-size: 11px;
+}
+
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.dcita-modal-error {
+  padding:
+    12px 14px;
+
+  border:
+    1px solid
+    #FECACA;
+
+  border-radius:
+    11px;
+
+  background:
+    #FFF1F1;
+
+  color:
+    #B42318;
+
+  font-size:
+    11px;
+
+  font-weight:
+    600;
+
+  line-height:
+    1.5;
+}
+
+
+/* ==========================================
+   MODAL ACTIONS
+========================================== */
+
+.dcita-modal-actions {
+  padding:
+    18px 24px 24px;
+
+  border-top:
+    1px solid
+    #EEF1F4;
+
+  display: flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    flex-end;
+
+  gap: 10px;
+}
+
+
+.dcita-modal-actions button {
+  min-height:
+    43px;
+
+  padding:
+    0 17px;
+
+  border-radius:
+    11px;
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
+
+  transition:
+    transform
+    0.15s ease,
+    background
+    0.15s ease,
+    box-shadow
+    0.15s ease;
+}
+
+
+.dcita-modal-actions button:hover:not(:disabled) {
+  transform:
+    translateY(-1px);
+}
+
+
+.dcita-modal-secondary {
+  border:
+    1px solid
+    #DDE3EA;
+
+  background:
+    white;
+
+  color:
+    #0D1B3D;
+}
+
+
+.dcita-modal-secondary:hover:not(:disabled) {
+  background:
+    #F8FAFC;
+}
+
+
+.dcita-modal-danger {
+  border: 0;
+
+  background:
+    #D92D20;
+
+  color:
+    white;
+}
+
+
+.dcita-modal-danger:hover:not(:disabled) {
+  background:
+    #B42318;
+
+  box-shadow:
+    0 8px 20px
+    rgba(
+      217,
+      45,
+      32,
+      0.20
+    );
+}
+
+
+.dcita-modal-actions button:disabled,
+.dcita-modal-close:disabled {
+  opacity: 0.55;
+
+  cursor:
+    not-allowed;
+}
+
+
+/* ==========================================
+   ANIMACIONES
+========================================== */
+
+@keyframes dcitaOverlayIn {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+@keyframes dcitaModalIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(14px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (
+  max-width: 700px
+) {
+
+  .dcita-topbar {
+    padding:
+      18px;
+  }
+
+
+  .dcita-brand {
+    display:
+      none;
+  }
+
+
+  .dcita-content {
+    padding:
+      20px
+      14px
+      40px;
+  }
+
+
+  .dcita-hero {
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+
+    gap:
+      15px;
+  }
+
+
+  .dcita-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .dcita-actions {
+    flex-direction:
+      column-reverse;
+  }
+
+
+  .dcita-actions button {
+    width:
+      100%;
+  }
+
+
+  .dcita-modal-overlay {
+    align-items:
+      flex-end;
+
+    padding:
+      10px;
+  }
+
+
+  .dcita-modal {
+    width:
+      100%;
+
+    max-height:
+      calc(
+        100vh - 20px
+      );
+
+    border-radius:
+      20px
+      20px
+      14px
+      14px;
+  }
+
+
+  .dcita-modal-header {
+    padding:
+      20px;
+  }
+
+
+  .dcita-modal-body {
+    padding:
+      20px;
+  }
+
+
+  .dcita-modal-actions {
+    padding:
+      16px
+      20px
+      20px;
+
+    flex-direction:
+      column-reverse;
+  }
+
+
+  .dcita-modal-actions button {
+    width:
+      100%;
+  }
+
+}

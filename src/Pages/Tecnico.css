@@ -1,0 +1,640 @@
+.tec-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(0,119,204,.12),
+      transparent 32%
+    ),
+    #F5F7FA;
+
+  color: #0D1B3D;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.tec-header {
+  min-height: 105px;
+
+  background:
+    linear-gradient(
+      120deg,
+      #0D1B3D,
+      #12356B 65%,
+      #0077CC
+    );
+
+  color: white;
+
+  padding:
+    22px max(20px, calc((100vw - 760px) / 2));
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow:
+    0 12px 30px rgba(13,27,61,.18);
+}
+
+.tec-eyebrow {
+  display: block;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+
+  color:
+    rgba(255,255,255,.58);
+}
+
+.tec-header h1 {
+  margin: 6px 0 3px;
+
+  font-size: 27px;
+}
+
+.tec-header p {
+  margin: 0;
+
+  font-size: 12px;
+
+  color:
+    rgba(255,255,255,.68);
+}
+
+.tec-avatar {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 17px;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    rgba(255,255,255,.14);
+
+  border:
+    1px solid rgba(255,255,255,.18);
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.tec-content {
+  max-width: 760px;
+
+  margin: 0 auto;
+
+  padding:
+    22px 16px 45px;
+}
+
+
+/* =========================
+   FECHA
+========================= */
+
+.tec-date-card {
+  background: white;
+
+  border:
+    1px solid #E5EAF0;
+
+  border-radius: 20px;
+
+  padding: 18px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  box-shadow:
+    0 10px 28px rgba(13,27,61,.06);
+
+  margin-bottom: 16px;
+}
+
+.tec-date-card span {
+  display: block;
+
+  color: #0077CC;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.tec-date-card h2 {
+  margin:
+    5px 0 3px;
+
+  font-size: 18px;
+
+  text-transform: capitalize;
+}
+
+.tec-date-card p {
+  margin: 0;
+
+  color: #6B6F76;
+
+  font-size: 10px;
+}
+
+.tec-date-card input {
+  border:
+    1px solid #DDE3EA;
+
+  border-radius: 11px;
+
+  padding: 10px;
+
+  background: #FBFCFE;
+
+  color: #0D1B3D;
+}
+
+
+/* =========================
+   MENSAJES
+========================= */
+
+.tec-message {
+  background: #FFF4F2;
+
+  border:
+    1px solid #FECDCA;
+
+  color: #B42318;
+
+  border-radius: 12px;
+
+  padding: 13px 15px;
+
+  font-size: 11px;
+
+  margin-bottom: 16px;
+}
+
+
+/* =========================
+   VACIO
+========================= */
+
+.tec-empty {
+  background: white;
+
+  border:
+    1px solid #E5EAF0;
+
+  border-radius: 20px;
+
+  padding: 45px 20px;
+
+  text-align: center;
+
+  color: #6B6F76;
+
+  box-shadow:
+    0 10px 28px rgba(13,27,61,.05);
+}
+
+.tec-empty-icon {
+  width: 55px;
+  height: 55px;
+
+  margin:
+    0 auto 14px;
+
+  border-radius: 18px;
+
+  display: grid;
+  place-items: center;
+
+  background: #ECFDF3;
+
+  color: #027A48;
+
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.tec-empty h3 {
+  margin:
+    0 0 6px;
+
+  color: #0D1B3D;
+}
+
+.tec-empty p {
+  margin: 0;
+
+  font-size: 11px;
+}
+
+
+/* =========================
+   LISTA
+========================= */
+
+.tec-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+
+/* =========================
+   TARJETA
+========================= */
+
+.tec-service-card {
+  background: white;
+
+  border:
+    1px solid #E5EAF0;
+
+  border-radius: 22px;
+
+  padding: 20px;
+
+  box-shadow:
+    0 12px 32px rgba(13,27,61,.06);
+}
+
+.tec-service-top {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 14px;
+}
+
+.tec-time {
+  color: #0077CC;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.tec-service-top h2 {
+  margin:
+    5px 0 3px;
+
+  font-size: 18px;
+}
+
+.tec-service-type {
+  margin: 0;
+
+  color: #0077CC;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+/* =========================
+   ESTADOS
+========================= */
+
+.tec-status {
+  flex-shrink: 0;
+
+  padding:
+    7px 10px;
+
+  border-radius: 999px;
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.tec-status.programado {
+  background: #EEF4FF;
+  color: #3538CD;
+}
+
+.tec-status.confirmado {
+  background: #ECFDF3;
+  color: #027A48;
+}
+
+.tec-status.reprogramado {
+  background: #FFFAEB;
+  color: #B54708;
+}
+
+.tec-status.camino {
+  background: #FFF6ED;
+  color: #C4320A;
+}
+
+.tec-status.sitio {
+  background: #F0F9FF;
+  color: #026AA2;
+}
+
+.tec-status.proceso {
+  background: #FDF4FF;
+  color: #9F1AB1;
+}
+
+.tec-status.concluido {
+  background: #ECFDF3;
+  color: #027A48;
+}
+
+.tec-status.cancelado {
+  background: #FEF3F2;
+  color: #B42318;
+}
+
+
+/* =========================
+   DIRECCION
+========================= */
+
+.tec-address {
+  margin-top: 17px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  background: #F8FAFC;
+
+  border:
+    1px solid #E8EDF3;
+
+  border-radius: 14px;
+
+  padding: 13px 14px;
+}
+
+.tec-address > span {
+  width: 37px;
+  height: 37px;
+
+  border-radius: 11px;
+
+  background: #EDF7FF;
+
+  display: grid;
+  place-items: center;
+}
+
+.tec-address small,
+.tec-address strong {
+  display: block;
+}
+
+.tec-address small {
+  margin-bottom: 3px;
+
+  color: #98A1AE;
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.tec-address strong {
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================
+   PROBLEMA
+========================= */
+
+.tec-problem {
+  margin-top: 12px;
+
+  padding: 13px 14px;
+
+  border-radius: 14px;
+
+  border:
+    1px solid #E8EDF3;
+}
+
+.tec-problem small {
+  color: #98A1AE;
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.tec-problem p {
+  margin:
+    5px 0 0;
+
+  color: #6B6F76;
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================
+   CONTACTO
+========================= */
+
+.tec-contact-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap: 8px;
+
+  margin-top: 14px;
+}
+
+.tec-contact-grid button {
+  border:
+    1px solid #E1E7EE;
+
+  background: #FAFCFE;
+
+  border-radius: 12px;
+
+  min-height: 55px;
+
+  cursor: pointer;
+
+  color: #0D1B3D;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 4px;
+}
+
+.tec-contact-grid button span {
+  font-size: 9px;
+
+  font-weight: 700;
+}
+
+
+/* =========================
+   FLUJO
+========================= */
+
+.tec-flow-actions {
+  border-top:
+    1px solid #EDF0F4;
+
+  margin-top: 16px;
+
+  padding-top: 16px;
+}
+
+.tec-main-action {
+  width: 100%;
+
+  min-height: 52px;
+
+  border: 0;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0077CC,
+      #1598F5
+    );
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  box-shadow:
+    0 10px 25px rgba(0,119,204,.20);
+}
+
+.tec-main-action.working {
+  background:
+    linear-gradient(
+      135deg,
+      #0D1B3D,
+      #12356B
+    );
+}
+
+.tec-main-action:disabled {
+  opacity: .55;
+
+  cursor: wait;
+}
+
+.tec-waiting {
+  background: #F8FAFC;
+
+  border:
+    1px solid #E5EAF0;
+
+  border-radius: 12px;
+
+  padding: 12px;
+
+  text-align: center;
+
+  color: #6B6F76;
+
+  font-size: 10px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.tec-footer {
+  margin-top: 25px;
+
+  text-align: center;
+}
+
+.tec-footer button {
+  border: 0;
+
+  background: transparent;
+
+  color: #6B6F76;
+
+  cursor: pointer;
+
+  font-size: 10px;
+
+  text-decoration: underline;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+  .tec-header {
+    padding:
+      20px 18px;
+  }
+
+  .tec-content {
+    padding:
+      18px 12px 35px;
+  }
+
+  .tec-date-card {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .tec-date-card input {
+    width: 100%;
+  }
+
+  .tec-service-card {
+    padding: 17px 14px;
+  }
+
+  .tec-service-top {
+    flex-direction: column;
+  }
+
+  .tec-contact-grid {
+    grid-template-columns:
+      repeat(3,1fr);
+  }
+
+}
