@@ -6,7 +6,7 @@ import {
 
 import { supabase } from '../supabase'
 
-import './Clientes.css'
+import "./clientes.css";
 
 
 function Clientes({
