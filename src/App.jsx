@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import Login from './Pages/Login.jsx'
+import Login from "./Pages/login.jsx";
 import Dashboard from './Pages/Dashboard.jsx'
-import Clientes from './Pages/Clientes.jsx'
+import Clientes from "./Pages/clientes.jsx";
 
 import NuevaCita from './Pages/NuevaCita.jsx'
 import DireccionCita from './Pages/DireccionCita.jsx'
