@@ -1,0 +1,152 @@
+.erc-waiting,
+.erc-pending,
+.erc-confirmed,
+.erc-error {
+  width: 100%;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.erc-waiting {
+  padding: 16px;
+  border: 1px solid #dce5ef;
+  background: #f7f9fc;
+  color: #667085;
+  font-size: 13px;
+  text-align: center;
+}
+
+.erc-pending {
+  padding: 16px;
+  border: 1px solid #f4d7a4;
+  background: #fffaf0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.erc-pending strong {
+  color: #8a5a00;
+  font-size: 13px;
+}
+
+.erc-pending span {
+  color: #806b43;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.erc-confirmed {
+  padding: 16px;
+  border: 1px solid #b8e4cd;
+  background: #f2fcf6;
+}
+
+.erc-confirmed-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.erc-confirmed-head > div:first-child {
+  min-width: 0;
+}
+
+.erc-confirmed-head strong,
+.erc-confirmed-head span {
+  display: block;
+}
+
+.erc-confirmed-head strong {
+  color: #087443;
+  font-size: 13px;
+}
+
+.erc-confirmed-head span {
+  margin-top: 4px;
+  color: #4f6f60;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.erc-sent-badge {
+  flex: 0 0 auto;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: #d9f7e6;
+  color: #087443;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+
+.erc-sent-date {
+  margin-top: 9px;
+  color: #638072;
+  font-size: 11px;
+}
+
+.erc-share-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 15px 16px;
+  border: 0;
+  border-radius: 13px;
+  background: #0a8f57;
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(10, 143, 87, .18);
+}
+
+.erc-share-button:hover {
+  filter: brightness(.97);
+}
+
+.erc-share-button:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+.erc-help {
+  margin-top: 8px;
+  color: #6d8177;
+  font-size: 10.5px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.erc-error {
+  padding: 14px;
+  border: 1px solid #f3c4c0;
+  background: #fff5f4;
+  color: #b42318;
+  font-size: 12px;
+}
+
+.erc-error button {
+  margin-left: 10px;
+  border: 0;
+  background: transparent;
+  color: #0077cc;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .erc-confirmed-head {
+    flex-direction: column;
+  }
+
+  .erc-sent-badge {
+    align-self: flex-start;
+  }
+
+  .erc-share-button {
+    min-height: 54px;
+  }
+}

@@ -8,6 +8,7 @@ import { supabase } from '../supabase'
 import EjecucionServicio from './EjecucionServicio.jsx'
 
 import './Tecnico.css'
+import EnviarReporteCliente from './EnviarReporteCliente.jsx' 
 
 
 function Tecnico({
@@ -1705,6 +1706,8 @@ Rapidez · Limpieza · Confianza
                             {
                               cita.estado ===
                                 'EN_PROCESO' && (
+                                  
+
 
                                 <button
                                   type="button"
@@ -1715,12 +1718,26 @@ Rapidez · Limpieza · Confianza
                                       cita
                                     )
                                   }
+                                  
                                 >
                                   🔧 CONTINUAR SERVICIO
                                 </button>
 
                               )
                             }
+
+
+{/* CONCLUIDO / REPORTE AL CLIENTE */}
+
+{cita.estado ===
+  'CONCLUIDO' && (
+
+  <EnviarReporteCliente
+    cita={cita}
+    perfil={perfil}
+  />
+
+)}
 
 
                             {/* PROGRAMADO */}
