@@ -554,14 +554,39 @@ function Tecnico({
       )
 
 
-    const mensaje = `
+   const nombreTecnico =
+  perfil?.nombre ||
+  'Técnico DESTAPA YA'
+
+
+const nombreVehiculo =
+  cita?.vehiculos?.nombre_unidad ||
+  ''
+
+
+const placasVehiculo =
+  cita?.vehiculos?.placas ||
+  ''
+
+
+const datosVehiculo =
+  nombreVehiculo || placasVehiculo
+    ? `
+🚙 *Vehículo:*
+${nombreVehiculo || 'Unidad DESTAPA YA'}
+${placasVehiculo ? `Placas: ${placasVehiculo}` : ''}
+`
+    : ''
+
+
+const mensaje = `
 Hola ${cita.clientes?.nombre} 👋
 
-Tu técnico de *DESTAPA YA* ya se encuentra en camino.
+Te informamos que *${nombreTecnico}*, técnico de *DESTAPA YA*, ya se encuentra en camino para atender tu servicio.
 
-📍 Servicio:
+📍 *Servicio:*
 ${cita.tipos_servicio?.nombre || ''}
-
+${datosVehiculo}
 Nos vemos en unos momentos.
 
 *DESTAPA YA*

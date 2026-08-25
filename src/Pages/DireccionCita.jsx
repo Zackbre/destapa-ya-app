@@ -2,6 +2,18 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
 import './DireccionCita.css'
 
+const MUNICIPIOS = [
+  'Monterrey',
+  'San Nicolas',
+  'San Pedro',
+  'García',
+  'Guadalupe',
+  'Santiago',
+  'Santa Catarina',
+  'Escobedo',
+  'Apodaca'
+]
+
 function DireccionCita({
   cliente,
   direccionSeleccionada,
@@ -70,7 +82,7 @@ function DireccionCita({
     }
 
     if (!municipio.trim()) {
-      alert('Captura el municipio.')
+      alert('Selecciona el municipio.')
       return
     }
 
@@ -316,12 +328,23 @@ function DireccionCita({
                 <div className="dc-field">
                   <label>Municipio *</label>
 
-                  <input
-                    type="text"
+                  <select
                     value={municipio}
                     onChange={(e) => setMunicipio(e.target.value)}
-                    placeholder="Monterrey"
-                  />
+                  >
+                    <option value="">
+                      Selecciona un municipio
+                    </option>
+
+                    {MUNICIPIOS.map((municipioOpcion) => (
+                      <option
+                        key={municipioOpcion}
+                        value={municipioOpcion}
+                      >
+                        {municipioOpcion}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
               </div>
