@@ -1805,7 +1805,7 @@ function EjecucionServicio({
             <input
               type="file"
               accept="image/*"
-              capture="environment"
+              
               multiple
               onChange={(e) =>
                 seleccionarFotos(
@@ -1835,13 +1835,13 @@ function EjecucionServicio({
                 </strong>
 
                 <small>
-                  Cámara o galería
+                  Seleccionar de galería
                 </small>
 
                 <input
                   type="file"
                   accept="image/*"
-                  capture="environment"
+          
                   multiple
                   onChange={(e) =>
                     seleccionarFotos(
