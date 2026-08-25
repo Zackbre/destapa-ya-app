@@ -41,6 +41,7 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_EVIDENCIAS_API: ${{ secrets.VITE_EVIDENCIAS_API }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
