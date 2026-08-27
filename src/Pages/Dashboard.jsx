@@ -2183,10 +2183,7 @@ function Dashboard({
                 </button>
 
 
-                <button className="quick-card">
-                  <span>▤</span>
-                  Reportes
-                </button>
+              
 
               </div>
 
