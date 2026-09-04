@@ -976,3 +976,212 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================
+   SEMAFORO DE METAS - VERSION LIMPIA
+   Solo afecta las tarjetas mensual y anual de Reportes.
+========================================================== */
+
+.rep-period-card.rep-semaforo-verde {
+  border-color: #A6E6C8;
+  box-shadow:
+    inset 4px 0 0 #12B76A,
+    0 10px 30px rgba(13, 27, 61, .05);
+}
+
+.rep-period-card.rep-semaforo-amarillo {
+  border-color: #F4D58D;
+  box-shadow:
+    inset 4px 0 0 #F79009,
+    0 10px 30px rgba(13, 27, 61, .05);
+}
+
+.rep-period-card.rep-semaforo-rojo {
+  border-color: #F5B7B1;
+  box-shadow:
+    inset 4px 0 0 #D92D20,
+    0 10px 30px rgba(13, 27, 61, .05);
+}
+
+.rep-period-card.rep-semaforo-neutral {
+  border-color: #DCE8F2;
+}
+
+
+.rep-semaforo-percent-verde {
+  background: #ECFDF3;
+  color: #027A48;
+}
+
+.rep-semaforo-percent-amarillo {
+  background: #FFF7E8;
+  color: #B54708;
+}
+
+.rep-semaforo-percent-rojo {
+  background: #FFF1F0;
+  color: #B42318;
+}
+
+.rep-semaforo-percent-neutral {
+  background: #F2F4F7;
+  color: #667085;
+}
+
+
+.rep-semaforo-box {
+  margin: 14px 0 2px;
+  padding: 11px 12px;
+  border: 1px solid #E5EAF0;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  background: #F8FAFC;
+}
+
+.rep-semaforo-box > div {
+  min-width: 0;
+}
+
+.rep-semaforo-box strong,
+.rep-semaforo-box small {
+  display: block;
+}
+
+.rep-semaforo-box strong {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .45px;
+}
+
+.rep-semaforo-box small {
+  margin-top: 3px;
+  color: #667085;
+  font-size: 8px;
+  line-height: 1.35;
+}
+
+.rep-semaforo-box b {
+  white-space: nowrap;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.rep-semaforo-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #98A2B3;
+  box-shadow: 0 0 0 4px rgba(152, 162, 179, .12);
+}
+
+.rep-semaforo-box-verde {
+  border-color: #B7E8CF;
+  background: #F2FCF7;
+  color: #027A48;
+}
+
+.rep-semaforo-box-verde .rep-semaforo-dot {
+  background: #12B76A;
+  box-shadow: 0 0 0 4px rgba(18, 183, 106, .14);
+}
+
+.rep-semaforo-box-amarillo {
+  border-color: #F4D58D;
+  background: #FFFAEB;
+  color: #B54708;
+}
+
+.rep-semaforo-box-amarillo .rep-semaforo-dot {
+  background: #F79009;
+  box-shadow: 0 0 0 4px rgba(247, 144, 9, .15);
+}
+
+.rep-semaforo-box-rojo {
+  border-color: #F2B8B5;
+  background: #FFF5F4;
+  color: #B42318;
+}
+
+.rep-semaforo-box-rojo .rep-semaforo-dot {
+  background: #D92D20;
+  box-shadow: 0 0 0 4px rgba(217, 45, 32, .14);
+}
+
+.rep-semaforo-box-neutral {
+  color: #667085;
+}
+
+
+.rep-goal-track-semaforo {
+  position: relative;
+  overflow: visible;
+}
+
+.rep-goal-fill-verde {
+  background: linear-gradient(90deg, #039855, #12B76A);
+}
+
+.rep-goal-fill-amarillo {
+  background: linear-gradient(90deg, #DC6803, #F79009);
+}
+
+.rep-goal-fill-rojo {
+  background: linear-gradient(90deg, #B42318, #D92D20);
+}
+
+.rep-goal-fill-neutral {
+  background: linear-gradient(90deg, #98A2B3, #B7C0CC);
+}
+
+.rep-goal-expected-marker {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  border-radius: 999px;
+  background: #0D1B3D;
+  transform: translateX(-1px);
+  z-index: 2;
+}
+
+.rep-goal-expected-marker::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0D1B3D;
+  transform: translate(-50%, -50%);
+}
+
+.rep-goal-expected-label {
+  margin-top: 7px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #667085;
+  font-size: 8px;
+}
+
+.rep-goal-expected-label strong {
+  color: #0D1B3D;
+  font-size: 8px;
+}
+
+
+@media (max-width: 700px) {
+  .rep-semaforo-box {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .rep-semaforo-box b {
+    grid-column: 2;
+    white-space: normal;
+  }
+}
+

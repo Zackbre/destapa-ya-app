@@ -1406,6 +1406,149 @@ function Reportes({ onVolver }) {
 
 
   // ==========================================
+  // SEMAFORO DE METAS
+  // ==========================================
+
+  function obtenerAvanceEsperadoMes() {
+    const fecha = new Date()
+
+    const diasDelMes =
+      new Date(
+        fecha.getFullYear(),
+        fecha.getMonth() + 1,
+        0
+      ).getDate()
+
+    return (
+      fecha.getDate() /
+      diasDelMes
+    ) * 100
+  }
+
+
+  function obtenerAvanceEsperadoAnio() {
+    const fecha = new Date()
+
+    const inicioAnio =
+      new Date(
+        fecha.getFullYear(),
+        0,
+        1
+      )
+
+    const inicioSiguienteAnio =
+      new Date(
+        fecha.getFullYear() + 1,
+        0,
+        1
+      )
+
+    const hoySinHora =
+      new Date(
+        fecha.getFullYear(),
+        fecha.getMonth(),
+        fecha.getDate()
+      )
+
+    const milisegundosDia =
+      1000 * 60 * 60 * 24
+
+    const diasTranscurridos =
+      Math.floor(
+        (
+          hoySinHora -
+          inicioAnio
+        ) /
+        milisegundosDia
+      ) + 1
+
+    const diasDelAnio =
+      Math.round(
+        (
+          inicioSiguienteAnio -
+          inicioAnio
+        ) /
+        milisegundosDia
+      )
+
+    return (
+      diasTranscurridos /
+      diasDelAnio
+    ) * 100
+  }
+
+
+  function obtenerSemaforo(
+    avanceReal,
+    avanceEsperado,
+    cuota
+  ) {
+    if (
+      Number(cuota || 0) <= 0
+    ) {
+      return {
+        nivel: 'neutral',
+        etiqueta: 'SIN META',
+        mensaje:
+          'Configura una cuota para activar el semáforo.'
+      }
+    }
+
+    if (
+      avanceReal >=
+      avanceEsperado
+    ) {
+      return {
+        nivel: 'verde',
+        etiqueta: 'EN RITMO',
+        mensaje:
+          'El avance está en línea o por encima de lo esperado.'
+      }
+    }
+
+    if (
+      avanceReal >=
+      avanceEsperado * 0.85
+    ) {
+      return {
+        nivel: 'amarillo',
+        etiqueta: 'CERCA DEL RITMO',
+        mensaje:
+          'El avance está cerca de lo esperado; conviene dar seguimiento.'
+      }
+    }
+
+    return {
+      nivel: 'rojo',
+      etiqueta: 'POR DEBAJO',
+      mensaje:
+        'El avance está por debajo del ritmo necesario para alcanzar la meta.'
+    }
+  }
+
+
+  const avanceEsperadoMes =
+    obtenerAvanceEsperadoMes()
+
+  const avanceEsperadoAnio =
+    obtenerAvanceEsperadoAnio()
+
+  const semaforoMensual =
+    obtenerSemaforo(
+      avanceMensual,
+      avanceEsperadoMes,
+      cuotaMensual
+    )
+
+  const semaforoAnual =
+    obtenerSemaforo(
+      avanceAnual,
+      avanceEsperadoAnio,
+      cuotaAnual
+    )
+
+
+  // ==========================================
   // UI
   // ==========================================
 
@@ -1647,7 +1790,11 @@ function Reportes({ onVolver }) {
                   </div>
 
                   <div className="rep-period-grid">
-                    <article className="rep-period-card">
+                    <article
+                      className={
+                        `rep-period-card rep-semaforo-${semaforoMensual.nivel}`
+                      }
+                    >
                       <div className="rep-period-top">
                         <div>
                           <span>ESTE MES</span>
@@ -1666,7 +1813,11 @@ function Reportes({ onVolver }) {
                           </strong>
                         </div>
 
-                        <div className="rep-period-percent">
+                        <div
+                          className={
+                            `rep-period-percent rep-semaforo-percent-${semaforoMensual.nivel}`
+                          }
+                        >
                           {
                             cuotaMensual > 0
                               ? formatearPorcentaje(
@@ -1675,6 +1826,37 @@ function Reportes({ onVolver }) {
                               : '—'
                           }
                         </div>
+                      </div>
+
+                      <div
+                        className={
+                          `rep-semaforo-box rep-semaforo-box-${semaforoMensual.nivel}`
+                        }
+                      >
+                        <span className="rep-semaforo-dot" />
+
+                        <div>
+                          <strong>
+                            {semaforoMensual.etiqueta}
+                          </strong>
+
+                          <small>
+                            {semaforoMensual.mensaje}
+                          </small>
+                        </div>
+
+                        {
+                          cuotaMensual > 0 && (
+                            <b>
+                              Esperado hoy:{' '}
+                              {
+                                formatearPorcentaje(
+                                  avanceEsperadoMes
+                                )
+                              }
+                            </b>
+                          )
+                        }
                       </div>
 
                       <div className="rep-period-service-count">
@@ -1774,9 +1956,11 @@ function Reportes({ onVolver }) {
                         }
                       </div>
 
-                      <div className="rep-goal-track">
+                      <div className="rep-goal-track rep-goal-track-semaforo">
                         <div
-                          className="rep-goal-fill"
+                          className={
+                            `rep-goal-fill rep-goal-fill-${semaforoMensual.nivel}`
+                          }
                           style={{
                             width:
                               `${Math.min(
@@ -1785,11 +1969,49 @@ function Reportes({ onVolver }) {
                               )}%`
                           }}
                         />
+
+                        {
+                          cuotaMensual > 0 && (
+                            <span
+                              className="rep-goal-expected-marker"
+                              style={{
+                                left:
+                                  `${Math.min(
+                                    avanceEsperadoMes,
+                                    100
+                                  )}%`
+                              }}
+                              title="Avance esperado al día"
+                            />
+                          )
+                        }
                       </div>
+
+                      {
+                        cuotaMensual > 0 && (
+                          <div className="rep-goal-expected-label">
+                            <span>
+                              Avance esperado al día
+                            </span>
+
+                            <strong>
+                              {
+                                formatearPorcentaje(
+                                  avanceEsperadoMes
+                                )
+                              }
+                            </strong>
+                          </div>
+                        )
+                      }
                     </article>
 
 
-                    <article className="rep-period-card annual">
+                    <article
+                      className={
+                        `rep-period-card annual rep-semaforo-${semaforoAnual.nivel}`
+                      }
+                    >
                       <div className="rep-period-top">
                         <div>
                           <span>ACUMULADO ANUAL</span>
@@ -1798,7 +2020,11 @@ function Reportes({ onVolver }) {
                           </strong>
                         </div>
 
-                        <div className="rep-period-percent">
+                        <div
+                          className={
+                            `rep-period-percent rep-semaforo-percent-${semaforoAnual.nivel}`
+                          }
+                        >
                           {
                             cuotaAnual > 0
                               ? formatearPorcentaje(
@@ -1807,6 +2033,37 @@ function Reportes({ onVolver }) {
                               : '—'
                           }
                         </div>
+                      </div>
+
+                      <div
+                        className={
+                          `rep-semaforo-box rep-semaforo-box-${semaforoAnual.nivel}`
+                        }
+                      >
+                        <span className="rep-semaforo-dot" />
+
+                        <div>
+                          <strong>
+                            {semaforoAnual.etiqueta}
+                          </strong>
+
+                          <small>
+                            {semaforoAnual.mensaje}
+                          </small>
+                        </div>
+
+                        {
+                          cuotaAnual > 0 && (
+                            <b>
+                              Esperado hoy:{' '}
+                              {
+                                formatearPorcentaje(
+                                  avanceEsperadoAnio
+                                )
+                              }
+                            </b>
+                          )
+                        }
                       </div>
 
                       <div className="rep-period-service-count">
@@ -1906,9 +2163,11 @@ function Reportes({ onVolver }) {
                         }
                       </div>
 
-                      <div className="rep-goal-track">
+                      <div className="rep-goal-track rep-goal-track-semaforo">
                         <div
-                          className="rep-goal-fill"
+                          className={
+                            `rep-goal-fill rep-goal-fill-${semaforoAnual.nivel}`
+                          }
                           style={{
                             width:
                               `${Math.min(
@@ -1917,7 +2176,41 @@ function Reportes({ onVolver }) {
                               )}%`
                           }}
                         />
+
+                        {
+                          cuotaAnual > 0 && (
+                            <span
+                              className="rep-goal-expected-marker"
+                              style={{
+                                left:
+                                  `${Math.min(
+                                    avanceEsperadoAnio,
+                                    100
+                                  )}%`
+                              }}
+                              title="Avance esperado al día"
+                            />
+                          )
+                        }
                       </div>
+
+                      {
+                        cuotaAnual > 0 && (
+                          <div className="rep-goal-expected-label">
+                            <span>
+                              Avance esperado al día
+                            </span>
+
+                            <strong>
+                              {
+                                formatearPorcentaje(
+                                  avanceEsperadoAnio
+                                )
+                              }
+                            </strong>
+                          </div>
+                        )
+                      }
                     </article>
                   </div>
                 </section>
