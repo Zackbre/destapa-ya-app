@@ -4,11 +4,6 @@ import {
 } from 'react'
 
 import { supabase } from '../supabase'
-
-import {
-  descargarReporteServicio
-} from '../utils/generarReporteServicio'
-
 import './Dashboard.css'
 
 
@@ -17,13 +12,7 @@ function Dashboard({
   onLogout,
   onNuevaCita,
   onAgenda,
-  onClientes,
-  onServicios,
-  onReportes,
-  onGastos,
-  onVehiculos,
-  onInventario,
-  onUsuarios
+  onServicios
 }) {
 
   // ==========================================
@@ -465,21 +454,6 @@ function Dashboard({
             tipos_servicio (
               id,
               nombre
-            ),
-
-            vehiculos (
-              id,
-              nombre_unidad,
-              placas
-            ),
-
-            citas_tecnicos (
-              tecnico_id,
-
-              perfiles (
-                id,
-                nombre
-              )
             )
           )
         `)
@@ -847,29 +821,123 @@ function Dashboard({
 
   async function confirmarServicio() {
 
-  if (!servicioSeleccionado) {
+    if (
+      !servicioSeleccionado
+    ) {
+      return
+    }
+
+
+    const confirmar =
+      window.confirm(
+        `¿Confirmas el cierre administrativo del servicio ${servicioSeleccionado.folio}?`
+      )
+
+
+    if (
+      !confirmar
+    ) {
+      return
+    }
+
+
+    setProcesandoConfirmacion(true)
+
+
+    try {
+
+      const {
+        error
+      } =
+        await supabase
+          .from('servicios')
+          .update({
+
+            confirmado_admin:
+              true,
+
+            fecha_confirmacion_admin:
+              new Date()
+                .toISOString(),
+
+            confirmado_por:
+              perfil.id,
+
+            observacion_admin:
+              null
+
+          })
+          .eq(
+            'id',
+            servicioSeleccionado.id
+          )
+
+
+      if (error) {
+        throw error
+      }
+
+
+      window.alert(
+        `Servicio ${servicioSeleccionado.folio} confirmado correctamente.`
+      )
+
+
+      cerrarExpediente()
+
+
+      await cargarDashboard()
+
+
+    } catch (error) {
+
+      console.error(
+        'Error confirmando servicio:',
+        error
+      )
+
+
+      window.alert(
+        'No fue posible confirmar el servicio: ' +
+        error.message
+      )
+
+
+    } finally {
+
+      setProcesandoConfirmacion(
+        false
+      )
+    }
+  }
+
+
+  // ==========================================
+  // REGRESAR AL TECNICO
+  // ==========================================
+
+  async function regresarAlTecnico() {
+
+  if (
+    !servicioSeleccionado
+  ) {
     return
   }
 
 
-  if (!detalleServicio) {
-
-    window.alert(
-      'El expediente todavía no termina de cargar.'
-    )
-
-    return
-  }
+  const motivo =
+    'Prueba de devolución al técnico'
 
 
   const confirmar =
     window.confirm(
-      `¿Confirmas el cierre administrativo del servicio ${servicioSeleccionado.folio}?\n\n` +
-      'Al confirmar, el servicio quedará cerrado y se descargará automáticamente el reporte PDF final.'
+      `¿Deseas regresar el servicio ${servicioSeleccionado.folio} al técnico para corrección?`
     )
 
 
-  if (!confirmar) {
+  if (
+    !confirmar
+  ) {
     return
   }
 
@@ -881,29 +949,31 @@ function Dashboard({
 
   try {
 
-    const fechaConfirmacion =
-      new Date()
-        .toISOString()
-
+    // ==========================================
+    // SERVICIO
+    // ==========================================
 
     const {
-      error
+      error: servicioError
     } =
       await supabase
         .from('servicios')
         .update({
 
+          estado:
+            'EN_PROCESO',
+
           confirmado_admin:
-            true,
+            false,
 
           fecha_confirmacion_admin:
-            fechaConfirmacion,
+            null,
 
           confirmado_por:
-            perfil.id,
+            null,
 
           observacion_admin:
-            null
+            motivo
 
         })
         .eq(
@@ -912,98 +982,52 @@ function Dashboard({
         )
 
 
-    if (error) {
-      throw error
+    if (
+      servicioError
+    ) {
+
+      throw new Error(
+        'Error actualizando servicio: ' +
+        servicioError.message
+      )
     }
 
 
-    const tecnicosParaReporte =
-      (
-        servicioSeleccionado
-          ?.citas
-          ?.citas_tecnicos ||
-        []
-      )
-        .map(
-          asignacion => ({
+    // ==========================================
+    // CITA
+    // ==========================================
 
-            perfiles:
-              asignacion
-                ?.perfiles ||
-              null
+    const {
+      error: citaError
+    } =
+      await supabase
+        .from('citas')
+        .update({
 
-          })
+          estado:
+            'EN_PROCESO'
+
+        })
+        .eq(
+          'id',
+          servicioSeleccionado.cita_id
         )
 
 
-    const servicioParaReporte = {
-
-      ...servicioSeleccionado,
-
-      confirmado_admin:
-        true,
-
-      fecha_confirmacion_admin:
-        fechaConfirmacion,
-
-      confirmado_por:
-        perfil.id,
-
-      observacion_admin:
-        null,
-
-      servicios_tecnicos:
-        tecnicosParaReporte
-    }
-
-
-    let pdfDescargado =
-      true
-
-
-    try {
-
-      await descargarReporteServicio({
-
-        servicio:
-          servicioParaReporte,
-
-        detalleServicio:
-          detalleServicio
-
-      })
-
-    } catch (
-      pdfError
-    ) {
-
-      pdfDescargado =
-        false
-
-
-      console.error(
-        'El servicio fue confirmado, pero ocurrió un error generando el PDF:',
-        pdfError
-      )
-    }
-
-
     if (
-      pdfDescargado
+      citaError
     ) {
 
-      window.alert(
-        `✓ Servicio ${servicioSeleccionado.folio} confirmado correctamente.\n\n` +
-        'El reporte PDF final se descargó automáticamente.'
-      )
-
-    } else {
-
-      window.alert(
-        `✓ Servicio ${servicioSeleccionado.folio} quedó confirmado correctamente.\n\n` +
-        'No fue posible descargar el PDF automáticamente.'
+      throw new Error(
+        'Error actualizando cita: ' +
+        citaError.message
       )
     }
+
+
+    window.alert(
+      'Servicio regresado al técnico correctamente.'
+    )
 
 
     cerrarExpediente()
@@ -1017,13 +1041,13 @@ function Dashboard({
   ) {
 
     console.error(
-      'Error confirmando servicio:',
+      'Error regresando servicio:',
       error
     )
 
 
     window.alert(
-      'No fue posible confirmar el servicio:\n\n' +
+      'No fue posible regresar el servicio:\n\n' +
       error.message
     )
 
@@ -1035,155 +1059,6 @@ function Dashboard({
     )
   }
 }
-
-
-  // ==========================================
-  // REGRESAR AL TECNICO
-  // ==========================================
-
-  async function regresarAlTecnico() {
-
-    if (
-      !servicioSeleccionado
-    ) {
-      return
-    }
-
-
-    const motivo =
-      'Prueba de devolución al técnico'
-
-
-    const confirmar =
-      window.confirm(
-        `¿Deseas regresar el servicio ${servicioSeleccionado.folio} al técnico para corrección?`
-      )
-
-
-    if (
-      !confirmar
-    ) {
-      return
-    }
-
-
-    setProcesandoConfirmacion(
-      true
-    )
-
-
-    try {
-
-      // ==========================================
-      // SERVICIO
-      // ==========================================
-
-      const {
-        error: servicioError
-      } =
-        await supabase
-          .from('servicios')
-          .update({
-
-            estado:
-              'EN_PROCESO',
-
-            confirmado_admin:
-              false,
-
-            fecha_confirmacion_admin:
-              null,
-
-            confirmado_por:
-              null,
-
-            observacion_admin:
-              motivo
-
-          })
-          .eq(
-            'id',
-            servicioSeleccionado.id
-          )
-
-
-      if (
-        servicioError
-      ) {
-
-        throw new Error(
-          'Error actualizando servicio: ' +
-          servicioError.message
-        )
-      }
-
-
-      // ==========================================
-      // CITA
-      // ==========================================
-
-      const {
-        error: citaError
-      } =
-        await supabase
-          .from('citas')
-          .update({
-
-            estado:
-              'EN_PROCESO'
-
-          })
-          .eq(
-            'id',
-            servicioSeleccionado.cita_id
-          )
-
-
-      if (
-        citaError
-      ) {
-
-        throw new Error(
-          'Error actualizando cita: ' +
-          citaError.message
-        )
-      }
-
-
-      window.alert(
-        'Servicio regresado al técnico correctamente.'
-      )
-
-
-      cerrarExpediente()
-
-
-      await cargarDashboard()
-
-
-    } catch (
-      error
-    ) {
-
-      console.error(
-        'Error regresando servicio:',
-        error
-      )
-
-
-      window.alert(
-        'No fue posible regresar el servicio:\n\n' +
-        error.message
-      )
-
-
-    } finally {
-
-      setProcesandoConfirmacion(
-        false
-      )
-    }
-  }
 
 
   // ==========================================
@@ -1357,24 +1232,10 @@ function Dashboard({
           </button>
 
 
-        <button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (
-      onClientes
-    ) {
-
-      onClientes()
-    }
-
-  }}
->
-  <span>👥</span>
-  Clientes
-</button>
+          <button className="nav-item">
+            <span>👥</span>
+            Clientes
+          </button>
 
 
           <button
@@ -1402,87 +1263,28 @@ function Dashboard({
           </div>
 
 
-          <button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (onGastos) {
-      onGastos()
-    }
-
-  }}
->
-  <span>💳</span>
-  Gastos
-</button>
+          <button className="nav-item">
+            <span>💳</span>
+            Gastos
+          </button>
 
 
-        <button
-  className="nav-item"
-  onClick={() => {
+          <button className="nav-item">
+            <span>▦</span>
+            Inventario
+          </button>
 
-    setMenuAbierto(false)
 
-    if (onInventario) {
-      onInventario()
-    }
+          <button className="nav-item">
+            <span>🚐</span>
+            Vehículos
+          </button>
 
-  }}
->
-  <span>▦</span>
-  Inventario
-</button>
 
-        <button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (onVehiculos) {
-      onVehiculos()
-    }
-
-  }}
->
-  <span>🚐</span>
-  Vehículos
-</button>
-
-<button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (onUsuarios) {
-      onUsuarios()
-    }
-
-  }}
->
-  <span>👤</span>
-  Usuarios
-</button>
-
-        <button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (onReportes) {
-      onReportes()
-    }
-
-  }}
-
->
-  <span>▤</span>
-  Reportes
-</button>
+          <button className="nav-item">
+            <span>▤</span>
+            Reportes
+          </button>
 
         </nav>
 
@@ -2151,19 +1953,11 @@ function Dashboard({
                 </button>
 
 
-              <button
-  className="quick-card"
-  onClick={() => {
+                <button className="quick-card">
+                  <span>👥</span>
+                  Nuevo cliente
+                </button>
 
-    if (onReportes) {
-      onReportes()
-    }
-
-  }}
->
-  <span>▤</span>
-  Reportes
-</button>
 
                 <button
                   className="quick-card"
@@ -2183,7 +1977,10 @@ function Dashboard({
                 </button>
 
 
-              
+                <button className="quick-card">
+                  <span>▤</span>
+                  Reportes
+                </button>
 
               </div>
 
