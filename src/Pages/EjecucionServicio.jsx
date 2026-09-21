@@ -52,14 +52,6 @@ function EjecucionServicio({
   const [servicioIdActual, setServicioIdActual] =
     useState(null)
 
-  const nombreTipoServicio =
-    String(cita?.tipos_servicio?.nombre || '')
-      .trim()
-      .toLowerCase()
-
-  const aplicaResultadoDestape =
-    nombreTipoServicio.startsWith('destape')
-
 
   // ==========================================
   // HERRAMIENTAS
@@ -196,9 +188,10 @@ function EjecucionServicio({
     setDiagnostico(servicio.diagnostico || '')
     setTrabajoRealizado(servicio.trabajo_realizado || '')
     setSePudoDestapar(
-      typeof servicio.se_pudo_destapar === 'boolean'
-        ? servicio.se_pudo_destapar
-        : null
+      servicio.se_pudo_destapar === null ||
+      servicio.se_pudo_destapar === undefined
+        ? null
+        : Boolean(servicio.se_pudo_destapar)
     )
     setMotivoNoDestape(servicio.motivo_no_destape || '')
     setObservaciones(servicio.recomendaciones || '')
@@ -1206,23 +1199,21 @@ function EjecucionServicio({
 
 
     if (
-      aplicaResultadoDestape &&
       sePudoDestapar === null
     ) {
 
-      nuevosErrores.resultadoDestape =
-        'Indica si el destape se pudo realizar.'
+      nuevosErrores.sePudoDestapar =
+        'Indica si fue posible realizar el destape.'
     }
 
 
     if (
-      aplicaResultadoDestape &&
       sePudoDestapar === false &&
       !motivoNoDestape.trim()
     ) {
 
       nuevosErrores.motivoNoDestape =
-        'Explica por qué no se pudo destapar.'
+        'Captura el motivo por el que no fue posible realizar el destape.'
     }
 
 
@@ -1700,20 +1691,17 @@ function EjecucionServicio({
             trabajo_realizado:
               trabajoRealizado.trim(),
 
-            se_pudo_destapar:
-              aplicaResultadoDestape
-                ? sePudoDestapar
-                : null,
-
-            motivo_no_destape:
-              aplicaResultadoDestape &&
-              sePudoDestapar === false
-                ? motivoNoDestape.trim() || null
-                : null,
-
             recomendaciones:
               observaciones.trim() ||
               null,
+
+            se_pudo_destapar:
+              sePudoDestapar,
+
+            motivo_no_destape:
+              sePudoDestapar === false
+                ? motivoNoDestape.trim() || null
+                : null,
 
             estado:
               'CONCLUIDO'
@@ -1859,7 +1847,7 @@ function EjecucionServicio({
             <input
               type="file"
               accept="image/*"
-              
+              capture="environment"
               multiple
               onChange={(e) =>
                 seleccionarFotos(
@@ -1889,13 +1877,13 @@ function EjecucionServicio({
                 </strong>
 
                 <small>
-                  Seleccionar de galería
+                  Cámara o galería
                 </small>
 
                 <input
                   type="file"
                   accept="image/*"
-          
+                  capture="environment"
                   multiple
                   onChange={(e) =>
                     seleccionarFotos(
@@ -2200,6 +2188,121 @@ function EjecucionServicio({
         </section>
 
 
+        {/* RESULTADO DEL SERVICIO */}
+
+        <section className="es-card">
+
+          <div className="es-card-title">
+
+            <div>
+
+              <span>
+                RESULTADO DEL SERVICIO
+              </span>
+
+              <h2>
+                ¿Se pudo destapar?
+              </h2>
+
+            </div>
+
+            <div className="es-icon">
+              ✓
+            </div>
+
+          </div>
+
+          <div className="es-field">
+
+            <label>
+              Resultado *
+            </label>
+
+            <select
+              value={
+                sePudoDestapar === null
+                  ? ''
+                  : sePudoDestapar
+                    ? 'SI'
+                    : 'NO'
+              }
+              className={
+                errores.sePudoDestapar
+                  ? 'es-input-error'
+                  : ''
+              }
+              onChange={(e) => {
+                const valor = e.target.value
+                const resultado =
+                  valor === ''
+                    ? null
+                    : valor === 'SI'
+
+                setSePudoDestapar(resultado)
+
+                if (resultado !== false) {
+                  setMotivoNoDestape('')
+                }
+
+                limpiarError('sePudoDestapar')
+                limpiarError('motivoNoDestape')
+              }}
+            >
+              <option value="">
+                Selecciona una opción
+              </option>
+
+              <option value="SI">
+                Sí, se pudo destapar
+              </option>
+
+              <option value="NO">
+                No, no se pudo destapar
+              </option>
+            </select>
+
+            {errores.sePudoDestapar && (
+              <span className="es-error">
+                {errores.sePudoDestapar}
+              </span>
+            )}
+
+          </div>
+
+          {sePudoDestapar === false && (
+            <div className="es-field">
+
+              <label>
+                Motivo de no destape *
+              </label>
+
+              <textarea
+                rows="4"
+                value={motivoNoDestape}
+                className={
+                  errores.motivoNoDestape
+                    ? 'es-input-error'
+                    : ''
+                }
+                onChange={(e) => {
+                  setMotivoNoDestape(e.target.value)
+                  limpiarError('motivoNoDestape')
+                }}
+                placeholder="Ejemplo: Obstrucción localizada aproximadamente a 20 metros; se realizaron varios intentos con K400 sin lograr liberar la tubería."
+              />
+
+              {errores.motivoNoDestape && (
+                <span className="es-error">
+                  {errores.motivoNoDestape}
+                </span>
+              )}
+
+            </div>
+          )}
+
+        </section>
+
+
         {/* DIAGNOSTICO */}
 
         <section className="es-card">
@@ -2344,136 +2447,7 @@ function EjecucionServicio({
           </div>
 
         </section>
-
-
-        {/* RESULTADO DEL DESTAPE */}
-
-        {aplicaResultadoDestape && (
-
-          <section className="es-card">
-
-            <div className="es-card-title">
-
-              <div>
-
-                <span>RESULTADO DEL DESTAPE</span>
-
-                <h2>¿Se pudo destapar?</h2>
-
-              </div>
-
-              <div className="es-icon">✓</div>
-
-            </div>
-
-
-            <div className="es-grid two">
-
-              <button
-                type="button"
-                onClick={() => {
-                  setSePudoDestapar(true)
-                  setMotivoNoDestape('')
-                  limpiarError('resultadoDestape')
-                  limpiarError('motivoNoDestape')
-                }}
-                style={{
-                  border: sePudoDestapar === true ? '2px solid #198754' : '1px solid #D9E0E8',
-                  background: sePudoDestapar === true ? '#F0FBF4' : '#FFFFFF',
-                  color: '#17324D',
-                  borderRadius: '12px',
-                  padding: '16px',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  fontSize: '15px',
-                  fontWeight: 700
-                }}
-              >
-                <span style={{ display: 'block', fontSize: '20px', marginBottom: '6px' }}>✓ Sí</span>
-                <small style={{ fontWeight: 500, color: '#667085' }}>
-                  El destape se realizó correctamente.
-                </small>
-              </button>
-
-
-              <button
-                type="button"
-                onClick={() => {
-                  setSePudoDestapar(false)
-                  limpiarError('resultadoDestape')
-                }}
-                style={{
-                  border: sePudoDestapar === false ? '2px solid #C62828' : '1px solid #D9E0E8',
-                  background: sePudoDestapar === false ? '#FFF6F6' : '#FFFFFF',
-                  color: '#17324D',
-                  borderRadius: '12px',
-                  padding: '16px',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  fontSize: '15px',
-                  fontWeight: 700
-                }}
-              >
-                <span style={{ display: 'block', fontSize: '20px', marginBottom: '6px' }}>✕ No</span>
-                <small style={{ fontWeight: 500, color: '#667085' }}>
-                  No fue posible liberar la obstrucción.
-                </small>
-              </button>
-
-            </div>
-
-
-            {errores.resultadoDestape && (
-              <span className="es-error">
-                {errores.resultadoDestape}
-              </span>
-            )}
-
-
-            {sePudoDestapar === false && (
-
-              <div className="es-field" style={{ marginTop: '18px' }}>
-
-                <label>
-                  ¿Por qué no se pudo destapar? *
-                </label>
-
-                <textarea
-                  rows="4"
-                  value={motivoNoDestape}
-                  className={
-                    errores.motivoNoDestape
-                      ? 'es-input-error'
-                      : ''
-                  }
-                  onChange={(e) => {
-                    setMotivoNoDestape(e.target.value)
-                    limpiarError('motivoNoDestape')
-                  }}
-                  placeholder="Describe la causa: tubería colapsada, obstrucción fuera de alcance, objeto atascado, acceso imposible, etc."
-                />
-
-                {errores.motivoNoDestape && (
-                  <span className="es-error">
-                    {errores.motivoNoDestape}
-                  </span>
-                )}
-
-              </div>
-
-            )}
-
-
-            <div className="es-info" style={{ marginTop: '14px' }}>
-              Este resultado quedará registrado en el expediente y en el reporte del servicio.
-            </div>
-
-          </section>
-
-        )}
-
-
-        {/* HERRAMIENTAS */}
+                {/* HERRAMIENTAS */}
 
         <section className="es-card">
 

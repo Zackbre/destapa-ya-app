@@ -17,13 +17,7 @@ function Dashboard({
   onLogout,
   onNuevaCita,
   onAgenda,
-  onClientes,
-  onServicios,
-  onReportes,
-  onGastos,
-  onVehiculos,
-  onInventario,
-  onUsuarios
+  onServicios
 }) {
 
   // ==========================================
@@ -429,6 +423,8 @@ function Dashboard({
           diagnostico,
           trabajo_realizado,
           recomendaciones,
+          se_pudo_destapar,
+          motivo_no_destape,
           estado,
           fecha_inicio,
           confirmado_admin,
@@ -1357,24 +1353,10 @@ function Dashboard({
           </button>
 
 
-        <button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (
-      onClientes
-    ) {
-
-      onClientes()
-    }
-
-  }}
->
-  <span>👥</span>
-  Clientes
-</button>
+          <button className="nav-item">
+            <span>👥</span>
+            Clientes
+          </button>
 
 
           <button
@@ -1402,87 +1384,28 @@ function Dashboard({
           </div>
 
 
-          <button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (onGastos) {
-      onGastos()
-    }
-
-  }}
->
-  <span>💳</span>
-  Gastos
-</button>
+          <button className="nav-item">
+            <span>💳</span>
+            Gastos
+          </button>
 
 
-        <button
-  className="nav-item"
-  onClick={() => {
+          <button className="nav-item">
+            <span>▦</span>
+            Inventario
+          </button>
 
-    setMenuAbierto(false)
 
-    if (onInventario) {
-      onInventario()
-    }
+          <button className="nav-item">
+            <span>🚐</span>
+            Vehículos
+          </button>
 
-  }}
->
-  <span>▦</span>
-  Inventario
-</button>
 
-        <button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (onVehiculos) {
-      onVehiculos()
-    }
-
-  }}
->
-  <span>🚐</span>
-  Vehículos
-</button>
-
-<button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (onUsuarios) {
-      onUsuarios()
-    }
-
-  }}
->
-  <span>👤</span>
-  Usuarios
-</button>
-
-        <button
-  className="nav-item"
-  onClick={() => {
-
-    setMenuAbierto(false)
-
-    if (onReportes) {
-      onReportes()
-    }
-
-  }}
-
->
-  <span>▤</span>
-  Reportes
-</button>
+          <button className="nav-item">
+            <span>▤</span>
+            Reportes
+          </button>
 
         </nav>
 
@@ -2151,19 +2074,11 @@ function Dashboard({
                 </button>
 
 
-              <button
-  className="quick-card"
-  onClick={() => {
+                <button className="quick-card">
+                  <span>👥</span>
+                  Nuevo cliente
+                </button>
 
-    if (onReportes) {
-      onReportes()
-    }
-
-  }}
->
-  <span>▤</span>
-  Reportes
-</button>
 
                 <button
                   className="quick-card"
@@ -2183,7 +2098,10 @@ function Dashboard({
                 </button>
 
 
-              
+                <button className="quick-card">
+                  <span>▤</span>
+                  Reportes
+                </button>
 
               </div>
 

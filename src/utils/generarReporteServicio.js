@@ -1337,8 +1337,15 @@ function dibujarDescripcion(
   y
 ) {
 
+  const noDestape =
+    servicio?.se_pudo_destapar === false
+
+  // Bloque compacto: resultado en una fila y motivo
+  // junto a su etiqueta cuando el resultado es NO.
   const alto =
-    36
+    noDestape
+      ? 57
+      : 51
 
 
   caja(
@@ -1356,6 +1363,137 @@ function dibujarDescripcion(
     15,
     y + 6
   )
+
+
+  // ------------------------------------------
+  // RESULTADO DEL SERVICIO
+  // ------------------------------------------
+
+  doc.setFont(
+    'helvetica',
+    'bold'
+  )
+
+  doc.setFontSize(
+    5.4
+  )
+
+  doc.setTextColor(
+    ...C.azul
+  )
+
+  doc.text(
+    'RESULTADO DEL SERVICIO',
+    15,
+    y + 13
+  )
+
+  const resultado =
+    servicio?.se_pudo_destapar === true
+      ? 'SÍ, SE PUDO DESTAPAR'
+      : servicio?.se_pudo_destapar === false
+        ? 'NO, NO SE PUDO DESTAPAR'
+        : 'NO REGISTRADO'
+
+  doc.setFont(
+    'helvetica',
+    'bold'
+  )
+
+  doc.setFontSize(
+    7
+  )
+
+  if (servicio?.se_pudo_destapar === true) {
+    doc.setTextColor(...C.verde)
+  } else if (servicio?.se_pudo_destapar === false) {
+    doc.setTextColor(180, 60, 40)
+  } else {
+    doc.setTextColor(...C.gris)
+  }
+
+  doc.text(
+    resultado,
+    75,
+    y + 13
+  )
+
+
+  if (noDestape) {
+
+    doc.setDrawColor(
+      ...C.borde
+    )
+
+    doc.line(
+      15,
+      y + 17,
+      195,
+      y + 17
+    )
+
+    doc.setFont(
+      'helvetica',
+      'bold'
+    )
+
+    doc.setFontSize(
+      5.4
+    )
+
+    doc.setTextColor(
+      ...C.azul
+    )
+
+    doc.text(
+      'MOTIVO DE NO DESTAPE',
+      15,
+      y + 24
+    )
+
+    doc.setFont(
+      'helvetica',
+      'normal'
+    )
+
+    doc.setFontSize(
+      6.5
+    )
+
+    doc.setTextColor(
+      ...C.marino
+    )
+
+    const motivoLineas =
+      doc
+        .splitTextToSize(
+          textoSeguro(
+            servicio?.motivo_no_destape,
+            'Sin motivo registrado.'
+          ),
+          125
+        )
+        .slice(
+          0,
+          2
+        )
+
+    doc.text(
+      motivoLineas,
+      70,
+      y + 24
+    )
+  }
+
+
+  // ------------------------------------------
+  // DETALLE TÉCNICO
+  // ------------------------------------------
+
+  const yDetalle =
+    noDestape
+      ? y + 35
+      : y + 19
 
 
   const columnas = [
@@ -1431,12 +1569,11 @@ function dibujarDescripcion(
           ...C.borde
         )
 
-
         doc.line(
           item.x - 4,
-          y + 10,
+          yDetalle - 3,
           item.x - 4,
-          y + 31
+          yDetalle + 18
         )
       }
 
@@ -1446,21 +1583,18 @@ function dibujarDescripcion(
         'bold'
       )
 
-
       doc.setFontSize(
         5.4
       )
-
 
       doc.setTextColor(
         ...C.azul
       )
 
-
       doc.text(
         item.titulo,
         item.x,
-        y + 13
+        yDetalle
       )
 
 
@@ -1469,16 +1603,13 @@ function dibujarDescripcion(
         'normal'
       )
 
-
       doc.setFontSize(
         6.5
       )
 
-
       doc.setTextColor(
         ...C.marino
       )
-
 
       const lineas =
         doc
@@ -1490,14 +1621,13 @@ function dibujarDescripcion(
           )
           .slice(
             0,
-            5
+            4
           )
-
 
       doc.text(
         lineas,
         item.x,
-        y + 18
+        yDetalle + 5
       )
     }
   )
