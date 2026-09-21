@@ -17,7 +17,12 @@ function Dashboard({
   onLogout,
   onNuevaCita,
   onAgenda,
-  onServicios
+  onClientes,
+  onServicios,
+  onReportes,
+  onGastos,
+  onVehiculos,
+  onInventario
 }) {
 
   // ==========================================
@@ -1353,7 +1358,15 @@ function Dashboard({
           </button>
 
 
-          <button className="nav-item">
+          <button
+            className="nav-item"
+            onClick={() => {
+              setMenuAbierto(false)
+              if (onClientes) {
+                onClientes()
+              }
+            }}
+          >
             <span>👥</span>
             Clientes
           </button>
@@ -1384,25 +1397,57 @@ function Dashboard({
           </div>
 
 
-          <button className="nav-item">
+          <button
+            className="nav-item"
+            onClick={() => {
+              setMenuAbierto(false)
+              if (onGastos) {
+                onGastos()
+              }
+            }}
+          >
             <span>💳</span>
             Gastos
           </button>
 
 
-          <button className="nav-item">
+          <button
+            className="nav-item"
+            onClick={() => {
+              setMenuAbierto(false)
+              if (onInventario) {
+                onInventario()
+              }
+            }}
+          >
             <span>▦</span>
             Inventario
           </button>
 
 
-          <button className="nav-item">
+          <button
+            className="nav-item"
+            onClick={() => {
+              setMenuAbierto(false)
+              if (onVehiculos) {
+                onVehiculos()
+              }
+            }}
+          >
             <span>🚐</span>
             Vehículos
           </button>
 
 
-          <button className="nav-item">
+          <button
+            className="nav-item"
+            onClick={() => {
+              setMenuAbierto(false)
+              if (onReportes) {
+                onReportes()
+              }
+            }}
+          >
             <span>▤</span>
             Reportes
           </button>
