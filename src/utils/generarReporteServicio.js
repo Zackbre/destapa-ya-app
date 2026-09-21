@@ -1340,12 +1340,12 @@ function dibujarDescripcion(
   const noDestape =
     servicio?.se_pudo_destapar === false
 
-  // Bloque compacto: resultado en una fila y motivo
-  // junto a su etiqueta cuando el resultado es NO.
+  // Más espacio para capturar el detalle técnico.
+  // El resultado y el motivo permanecen en la parte superior.
   const alto =
     noDestape
-      ? 57
-      : 51
+      ? 71
+      : 61
 
 
   caja(
@@ -1388,12 +1388,14 @@ function dibujarDescripcion(
     y + 13
   )
 
+
   const resultado =
     servicio?.se_pudo_destapar === true
       ? 'SÍ, SE PUDO DESTAPAR'
       : servicio?.se_pudo_destapar === false
         ? 'NO, NO SE PUDO DESTAPAR'
         : 'NO REGISTRADO'
+
 
   doc.setFont(
     'helvetica',
@@ -1414,7 +1416,7 @@ function dibujarDescripcion(
 
   doc.text(
     resultado,
-    75,
+    57,
     y + 13
   )
 
@@ -1427,10 +1429,11 @@ function dibujarDescripcion(
 
     doc.line(
       15,
-      y + 17,
+      y + 16,
       195,
-      y + 17
+      y + 16
     )
+
 
     doc.setFont(
       'helvetica',
@@ -1448,7 +1451,7 @@ function dibujarDescripcion(
     doc.text(
       'MOTIVO DE NO DESTAPE',
       15,
-      y + 24
+      y + 22
     )
 
     doc.setFont(
@@ -1471,7 +1474,7 @@ function dibujarDescripcion(
             servicio?.motivo_no_destape,
             'Sin motivo registrado.'
           ),
-          125
+          174
         )
         .slice(
           0,
@@ -1480,14 +1483,14 @@ function dibujarDescripcion(
 
     doc.text(
       motivoLineas,
-      70,
-      y + 24
+      15,
+      y + 27
     )
   }
 
 
   // ------------------------------------------
-  // DETALLE TÉCNICO
+  // DETALLE TÉCNICO - 2 FILAS / 2 COLUMNAS
   // ------------------------------------------
 
   const yDetalle =
@@ -1496,15 +1499,11 @@ function dibujarDescripcion(
       : y + 19
 
 
-  const columnas = [
+  const fila1 = [
 
     {
-      x:
-        15,
-
-      titulo:
-        'PROBLEMA REPORTADO',
-
+      x: 15,
+      titulo: 'PROBLEMA REPORTADO',
       valor:
         servicio
           ?.problema_reportado ||
@@ -1513,40 +1512,29 @@ function dibujarDescripcion(
           ?.descripcion_problema
     },
 
-
     {
-      x:
-        61,
-
-      titulo:
-        'DIAGNÓSTICO',
-
+      x: 110,
+      titulo: 'DIAGNÓSTICO',
       valor:
         servicio
           ?.diagnostico
-    },
+    }
+  ]
 
+
+  const fila2 = [
 
     {
-      x:
-        107,
-
-      titulo:
-        'TRABAJO REALIZADO',
-
+      x: 15,
+      titulo: 'TRABAJO REALIZADO',
       valor:
         servicio
           ?.trabajo_realizado
     },
 
-
     {
-      x:
-        153,
-
-      titulo:
-        'RECOMENDACIONES',
-
+      x: 110,
+      titulo: 'RECOMENDACIONES',
       valor:
         servicio
           ?.recomendaciones ||
@@ -1555,81 +1543,111 @@ function dibujarDescripcion(
   ]
 
 
-  columnas.forEach(
-    (
-      item,
-      indice
-    ) => {
+  function dibujarFila(
+    fila,
+    tituloY,
+    textoY,
+    divisorY1,
+    divisorY2
+  ) {
 
-      if (
-        indice > 0
-      ) {
+    fila.forEach(
+      item => {
 
-        doc.setDrawColor(
-          ...C.borde
+        doc.setFont(
+          'helvetica',
+          'bold'
         )
 
-        doc.line(
-          item.x - 4,
-          yDetalle - 3,
-          item.x - 4,
-          yDetalle + 18
+        doc.setFontSize(
+          5.4
+        )
+
+        doc.setTextColor(
+          ...C.azul
+        )
+
+        doc.text(
+          item.titulo,
+          item.x,
+          tituloY
+        )
+
+
+        doc.setFont(
+          'helvetica',
+          'normal'
+        )
+
+        doc.setFontSize(
+          6.5
+        )
+
+        doc.setTextColor(
+          ...C.marino
+        )
+
+        const lineas =
+          doc
+            .splitTextToSize(
+              textoSeguro(item.valor),
+              82
+            )
+            .slice(
+              0,
+              4
+            )
+
+        doc.text(
+          lineas,
+          item.x,
+          textoY
         )
       }
+    )
 
 
-      doc.setFont(
-        'helvetica',
-        'bold'
-      )
+    doc.setDrawColor(
+      ...C.borde
+    )
 
-      doc.setFontSize(
-        5.4
-      )
-
-      doc.setTextColor(
-        ...C.azul
-      )
-
-      doc.text(
-        item.titulo,
-        item.x,
-        yDetalle
-      )
+    doc.line(
+      105,
+      divisorY1,
+      105,
+      divisorY2
+    )
+  }
 
 
-      doc.setFont(
-        'helvetica',
-        'normal'
-      )
+  dibujarFila(
+    fila1,
+    yDetalle,
+    yDetalle + 5,
+    yDetalle - 3,
+    yDetalle + 16
+  )
 
-      doc.setFontSize(
-        6.5
-      )
 
-      doc.setTextColor(
-        ...C.marino
-      )
+  // Divisor entre las dos filas
+  doc.setDrawColor(
+    ...C.borde
+  )
 
-      const lineas =
-        doc
-          .splitTextToSize(
-            textoSeguro(
-              item.valor
-            ),
-            40
-          )
-          .slice(
-            0,
-            4
-          )
+  doc.line(
+    15,
+    yDetalle + 20,
+    195,
+    yDetalle + 20
+  )
 
-      doc.text(
-        lineas,
-        item.x,
-        yDetalle + 5
-      )
-    }
+
+  dibujarFila(
+    fila2,
+    yDetalle + 26,
+    yDetalle + 31,
+    yDetalle + 23,
+    yDetalle + 40
   )
 
 
