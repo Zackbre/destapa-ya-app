@@ -21,6 +21,10 @@ const CATEGORIAS = [
   'Comisiones',
   'Servicios / suscripciones',
   'Administración',
+  'Diezmo',
+  'Telefonía',
+  'Internet',
+  'Ahorro',
   'Otro'
 ]
 
