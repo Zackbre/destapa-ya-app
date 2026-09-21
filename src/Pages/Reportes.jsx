@@ -25,6 +25,20 @@ function Reportes({ onVolver }) {
   const [gastos, setGastos] =
     useState([])
 
+  const [ingresosMensuales, setIngresosMensuales] =
+    useState(() =>
+      Array.from({ length: 12 }, (_, indice) => ({
+        mes: indice,
+        etiqueta: new Intl.DateTimeFormat(
+          'es-MX',
+          { month: 'short' }
+        )
+          .format(new Date(2026, indice, 1))
+          .replace('.', ''),
+        ingresos: 0
+      }))
+    )
+
   const [cargando, setCargando] =
     useState(true)
 
@@ -398,6 +412,62 @@ function Reportes({ onVolver }) {
             inicioMesComercial
         )
 
+      const mesesIngresos =
+        Array.from(
+          { length: 12 },
+          (_, indice) => ({
+            mes: indice,
+            etiqueta: new Intl.DateTimeFormat(
+              'es-MX',
+              { month: 'short' }
+            )
+              .format(
+                new Date(
+                  anioActual,
+                  indice,
+                  1
+                )
+              )
+              .replace('.', ''),
+            ingresos: 0
+          })
+        )
+
+      serviciosRealizadosAnio.forEach(
+        servicio => {
+          const fecha =
+            servicio?.citas?.fecha
+
+          if (!fecha) {
+            return
+          }
+
+          const fechaPartes =
+            String(fecha).split('-')
+
+          const anioServicio =
+            Number(fechaPartes[0])
+
+          const mesServicio =
+            Number(fechaPartes[1]) - 1
+
+          if (
+            anioServicio !== anioActual ||
+            mesServicio < 0 ||
+            mesServicio > 11
+          ) {
+            return
+          }
+
+          mesesIngresos[mesServicio].ingresos +=
+            ingresoServicio(servicio)
+        }
+      )
+
+      setIngresosMensuales(
+        mesesIngresos
+      )
+
       const calcularIngresos =
         lista =>
           lista.reduce(
@@ -511,6 +581,27 @@ function Reportes({ onVolver }) {
 
       setServicios([])
       setGastos([])
+      setIngresosMensuales(
+        Array.from(
+          { length: 12 },
+          (_, indice) => ({
+            mes: indice,
+            etiqueta: new Intl.DateTimeFormat(
+              'es-MX',
+              { month: 'short' }
+            )
+              .format(
+                new Date(
+                  new Date().getFullYear(),
+                  indice,
+                  1
+                )
+              )
+              .replace('.', ''),
+            ingresos: 0
+          })
+        )
+      )
 
     } finally {
       setCargando(false)
@@ -1547,6 +1638,14 @@ function Reportes({ onVolver }) {
       cuotaAnual
     )
 
+  const maxIngresoMensual =
+    Math.max(
+      ...ingresosMensuales.map(
+        item => Number(item.ingresos || 0)
+      ),
+      1
+    )
+
 
   // ==========================================
   // UI
@@ -2212,6 +2311,74 @@ function Reportes({ onVolver }) {
                         )
                       }
                     </article>
+                  </div>
+                </section>
+
+
+                <section className="rep-card rep-income-chart-card">
+                  <div className="rep-card-header rep-income-chart-header">
+                    <div>
+                      <span className="rep-chart-eyebrow">INGRESOS</span>
+                      <h3>
+                        Ingresos por mes
+                      </h3>
+                      <p>
+                        Comparativa visual de los ingresos cobrados durante {new Date().getFullYear()}.
+                      </p>
+                    </div>
+
+                    <div className="rep-chart-year">
+                      {new Date().getFullYear()}
+                    </div>
+                  </div>
+
+                  <div className="rep-income-chart">
+                    <div className="rep-income-grid" aria-hidden="true">
+                      <span />
+                      <span />
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+
+                    <div className="rep-income-bars">
+                      {ingresosMensuales.map(
+                        item => {
+                          const porcentaje =
+                            Number(item.ingresos || 0) > 0
+                              ? (
+                                  Number(item.ingresos || 0) /
+                                  maxIngresoMensual
+                                ) * 100
+                              : 0
+
+                          return (
+                            <div
+                              className="rep-income-bar-column"
+                              key={item.mes}
+                            >
+                              <div className="rep-income-value">
+                                {formatearMoneda(item.ingresos)}
+                              </div>
+
+                              <div className="rep-income-bar-area">
+                                <div
+                                  className="rep-income-bar"
+                                  style={{
+                                    height: `${porcentaje}%`
+                                  }}
+                                  title={`${item.etiqueta}: ${formatearMoneda(item.ingresos)}`}
+                                />
+                              </div>
+
+                              <span className="rep-income-month">
+                                {item.etiqueta}
+                              </span>
+                            </div>
+                          )
+                        }
+                      )}
+                    </div>
                   </div>
                 </section>
 

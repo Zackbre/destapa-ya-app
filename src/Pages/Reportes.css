@@ -1185,3 +1185,167 @@
   }
 }
 
+
+/* ==========================================
+   GRAFICA DE INGRESOS MENSUALES
+   ========================================== */
+
+.rep-income-chart-card {
+  margin-bottom: 18px;
+  padding: 22px 22px 18px;
+  overflow: hidden;
+}
+
+.rep-income-chart-header {
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+.rep-chart-eyebrow {
+  display: block;
+  margin-bottom: 5px;
+  color: #0077CC;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.rep-income-chart-header h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+}
+
+.rep-income-chart-header p {
+  margin: 0;
+  color: #98A1AE;
+  font-size: 9px;
+}
+
+.rep-chart-year {
+  min-width: 58px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: #EDF8FF;
+  color: #0D1B3D;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.rep-income-chart {
+  position: relative;
+  height: 330px;
+  margin-top: 16px;
+  padding: 24px 10px 0;
+  box-sizing: border-box;
+}
+
+.rep-income-grid {
+  position: absolute;
+  inset: 24px 10px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.rep-income-grid span {
+  display: block;
+  width: 100%;
+  border-top: 1px dashed #E4EAF0;
+}
+
+.rep-income-bars {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(38px, 1fr));
+  gap: 10px;
+}
+
+.rep-income-bar-column {
+  min-width: 0;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 25px 1fr 24px;
+  align-items: end;
+}
+
+.rep-income-value {
+  min-width: 0;
+  padding: 0 2px;
+  color: #0D1B3D;
+  font-size: 9px;
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-self: end;
+}
+
+.rep-income-bar-area {
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.rep-income-bar {
+  width: min(58px, 76%);
+  min-height: 0;
+  border-radius: 7px 7px 2px 2px;
+  background: linear-gradient(180deg, #1590E8 0%, #0077CC 100%);
+  box-shadow: 0 8px 16px rgba(0, 119, 204, .14);
+  transition: height .35s ease, transform .2s ease;
+}
+
+.rep-income-bar:hover {
+  transform: translateY(-2px);
+}
+
+.rep-income-month {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: #667085;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+@media (max-width: 850px) {
+  .rep-income-chart {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .rep-income-bars,
+  .rep-income-grid {
+    min-width: 760px;
+  }
+
+  .rep-income-grid {
+    right: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .rep-income-chart-card {
+    padding: 18px 14px 14px;
+  }
+
+  .rep-income-chart-header {
+    gap: 10px;
+  }
+
+  .rep-chart-year {
+    min-width: 50px;
+    height: 32px;
+    padding: 0 9px;
+  }
+}
